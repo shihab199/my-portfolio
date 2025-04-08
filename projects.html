@@ -85,5 +85,63 @@
       <a href="#" class="project-link">View Project</a>
     </div>
   </div>
+
+
+
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Contact Form</title>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+      (function() {
+        emailjs.init("YOUR_USER_ID"); // Replace with your EmailJS User ID
+      })();
+    </script>
+    <style>
+      body { font-family: Arial; padding: 20px; }
+      form { max-width: 400px; margin: auto; }
+      input, textarea { width: 100%; margin-bottom: 10px; padding: 10px; }
+      button { padding: 10px 15px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <h2>Contact Us</h2>
+    <form id="contact-form">
+      <input type="text" name="from_name" placeholder="Your Name" required />
+      <input type="email" name="reply_to" placeholder="Your Email" required />
+      <input type="text" name="subject" placeholder="Subject" required />
+      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  
+    <script>
+      document.getElementById('contact-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+  
+        // Validate email
+        const email = this.reply_to.value;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          alert("Please enter a valid email address.");
+          return;
+        }
+  
+        emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+          .then(() => {
+            alert('Message sent successfully!');
+            this.reset();
+          }, (error) => {
+            console.error(error);
+            alert('Failed to send message. Please try again.');
+          });
+      });
+    </script>
+  </body>
+  </html>
+  
+
 </body>
 </html>
